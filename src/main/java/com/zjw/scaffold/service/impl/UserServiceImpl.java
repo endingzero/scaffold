@@ -5,7 +5,6 @@ import com.zjw.scaffold.entity.User;
 import com.zjw.scaffold.mapper.UserMapper;
 import com.zjw.scaffold.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

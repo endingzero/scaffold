@@ -1,5 +1,7 @@
 package com.zjw.scaffold.controller;
 
+import com.zjw.scaffold.core.controller.BaseController;
+import com.zjw.scaffold.core.result.Result;
 import com.zjw.scaffold.entity.User;
 import com.zjw.scaffold.service.UserService;
 import io.swagger.annotations.Api;
@@ -18,16 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 @Api(value = "/user",tags = "用户")
-public class UserController {
+public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping(value = "/add")
     @ApiOperation("新增用户")
-    public void insert() {
+    public Result insert() {
         User user = new User();
         user.setName("hah");
-        userService.insert(user);
+        return this.success(userService.insert(user));
     }
 }
