@@ -27,9 +27,10 @@ public class UserController extends BaseController {
 
     @GetMapping(value = "/add")
     @ApiOperation("新增用户")
-    public Result insert() {
+    public Result<Void> insert() {
         User user = new User();
         user.setName("hah");
-        return this.success(userService.insert(user));
+        userService.addUser(user);
+        return this.success();
     }
 }

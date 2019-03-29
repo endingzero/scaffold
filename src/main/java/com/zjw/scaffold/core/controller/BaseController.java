@@ -22,11 +22,17 @@ public class BaseController {
      * @param data
      * @return
      */
-    public <T> Result success(T data){
+    public <T> Result<T> success(T data){
         return Result.buildSuccess(data);
     }
 
+    public Result<Void> success() {
+        return this.success(null, null);
+    }
 
+    public <T> Result<T> success(String msg, T data) {
+        return Result.build(Boolean.TRUE, msg, data);
+    }
     /**
      * 获取分页参数
      * @param <T>
@@ -36,5 +42,4 @@ public class BaseController {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         return PageUtils.buildFromRequest(request);
     }
-
 }

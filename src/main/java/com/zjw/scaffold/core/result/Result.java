@@ -27,9 +27,13 @@ public class Result<T> {
         this.data = data;
     }
 
-    public static <T> Result buildSuccess(T data) {
+    public static <T> Result<T> buildSuccess(T data) {
 
         return new Result<>(Boolean.TRUE, "成功", 0, data);
+    }
+
+    public static <T> Result<T> build(Boolean success, String msg, T data) {
+        return new Result(success, msg, 0, data);
     }
 
     public static <T> Result buildFaild(T data) {

@@ -10,4 +10,6 @@ import com.zjw.scaffold.entity.User;
  * @create: 2019/03/28 16:06
  */
 public interface UserService extends BaseService<User> {
+    
+    void addUser(User user);
 }

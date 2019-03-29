@@ -2,10 +2,14 @@ package com.zjw.scaffold.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zjw.scaffold.entity.User;
+import com.zjw.scaffold.event.AddUserEvent;
 import com.zjw.scaffold.mapper.UserMapper;
 import com.zjw.scaffold.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @program scaffold
@@ -16,4 +20,15 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    @Override
+    @Transactional
+    public void addUser(User user) {
+
+        this.baseMapper.insert(user);
+        this.applicationContext.publishEvent(new AddUserEvent(this,user));
+    }
 }
