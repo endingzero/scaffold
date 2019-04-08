@@ -29,6 +29,8 @@ public class SmsServiceImpl extends ServiceImpl<UserMapper, User> implements Sms
         System.out.println(addUserEvent.getUser().getId());
         User user = new User();
         user.setName("yaya");
+
+
         this.baseMapper.insert(user);
         String s = null;
         s.toString();
