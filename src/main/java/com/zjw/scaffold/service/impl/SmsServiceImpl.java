@@ -31,6 +31,7 @@ public class SmsServiceImpl extends ServiceImpl<UserMapper, User> implements Sms
         user.setName("yaya");
         this.baseMapper.insert(user);
         String s = null;
+
         s.toString();
     }
 }
