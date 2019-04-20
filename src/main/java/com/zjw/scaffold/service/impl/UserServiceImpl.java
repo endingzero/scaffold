@@ -1,6 +1,8 @@
 package com.zjw.scaffold.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zjw.scaffold.converter.UserDataConverter;
+import com.zjw.scaffold.core.excel.handler.ExcelDownloadResultHandler;
 import com.zjw.scaffold.entity.User;
 import com.zjw.scaffold.event.AddUserEvent;
 import com.zjw.scaffold.mapper.UserMapper;
@@ -37,6 +39,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public ResponseEntity<FileSystemResource> exportAllUser() {
 
+
+        UserDataConverter userDataConverter = new UserDataConverter();
+        ExcelDownloadResultHandler resultHandler = ExcelDownloadResultHandler.create(userDataConverter);
+
+        this.baseMapper.listAllUser(resultHandler);
         return null;
     }
 }

@@ -3,4 +3,11 @@
 <mapper namespace="com.zjw.scaffold.mapper.UserMapper">
 
 
+    <select id="listAllUser" resultType="com.zjw.scaffold.response.UserExportResponse">
+        select id,
+        username,
+        name
+        from user
+        where status = '1'
+    </select>
 </mapper>

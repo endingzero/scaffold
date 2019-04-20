@@ -1,8 +1,13 @@
 package com.zjw.scaffold.core.excel.handler;
 
+import com.zjw.scaffold.core.excel.converter.DataConverter;
+import com.zjw.scaffold.core.excel.writer.DataWriter;
 import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
@@ -13,6 +18,30 @@ import java.util.function.Supplier;
  */
 public class ExportResultHandler<T,R> implements ResultHandler<T>, Supplier<R> {
 
+    private DataConverter<T> converter;
+    private DataWriter<R> writer;
+    private int cacheSize = 500;
+    protected List<T> dataCache;
+
+    public ExportResultHandler(DataConverter<T> converter, DataWriter<R> writer) {
+        if(Objects.isNull(converter)) {
+            throw new NullPointerException("converter不能为空!");
+        }
+        if(Objects.isNull(writer)) {
+            throw new NullPointerException("writer不能为空!");
+        }
+
+        this.converter = converter;
+        this.writer = writer;
+        this.init();
+    }
+
+    private void init() {
+        this.writer.setTitle(this.converter.getTitle());
+        this.writer.setHeader(this.converter.getHeader());
+        this.dataCache = new ArrayList<>(this.cacheSize);
+    }
+
     @Override
     public R get() {
         return null;
@@ -20,6 +49,8 @@ public class ExportResultHandler<T,R> implements ResultHandler<T>, Supplier<R> {
 
     @Override
     public void handleResult(ResultContext<? extends T> resultContext) {
+
+        System.out.println(resultContext.getResultCount());
 
     }
 }
