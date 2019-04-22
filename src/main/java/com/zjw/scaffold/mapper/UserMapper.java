@@ -1,6 +1,7 @@
 package com.zjw.scaffold.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zjw.scaffold.core.excel.handler.ExcelDownloadResultHandler;
 import com.zjw.scaffold.entity.User;
 
 /**
@@ -11,4 +12,5 @@ import com.zjw.scaffold.entity.User;
  */
 public interface UserMapper extends BaseMapper<User> {
 
+    void listAllUser(ExcelDownloadResultHandler resultHandler);
 }

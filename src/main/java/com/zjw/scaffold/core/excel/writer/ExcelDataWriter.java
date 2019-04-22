@@ -1,7 +1,7 @@
-package com.zjw.scaffold.core.excel.handler;
+package com.zjw.scaffold.core.excel.writer;
 
-import com.zjw.scaffold.core.excel.DataWriter;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.ResponseEntity;
 
 /**
  * @program scaffold
@@ -9,7 +9,7 @@ import org.apache.poi.ss.usermodel.Workbook;
  * @author: zhuangjiewei
  * @create: 2019/03/28 22:49
  */
-public class ExcelDataWriter implements DataWriter<Workbook> {
+public class ExcelDataWriter implements DataWriter<ResponseEntity<FileSystemResource>> {
 
     @Override
     public void setTitle(String title) {
@@ -27,7 +27,7 @@ public class ExcelDataWriter implements DataWriter<Workbook> {
     }
 
     @Override
-    public Workbook get() {
+    public ResponseEntity<FileSystemResource> get() {
         return null;
     }
 }

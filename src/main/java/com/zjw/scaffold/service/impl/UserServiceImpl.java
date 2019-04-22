@@ -1,6 +1,8 @@
 package com.zjw.scaffold.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zjw.scaffold.converter.UserDataConverter;
+import com.zjw.scaffold.core.excel.handler.ExcelDownloadResultHandler;
 import com.zjw.scaffold.entity.User;
 import com.zjw.scaffold.event.AddUserEvent;
 import com.zjw.scaffold.mapper.UserMapper;
@@ -8,6 +10,8 @@ import com.zjw.scaffold.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,5 +34,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         this.baseMapper.insert(user);
         this.applicationContext.publishEvent(new AddUserEvent(this,user));
+    }
+
+    @Override
+    public ResponseEntity<FileSystemResource> exportAllUser() {
+
+
+        UserDataConverter userDataConverter = new UserDataConverter();
+        ExcelDownloadResultHandler resultHandler = ExcelDownloadResultHandler.create(userDataConverter);
+
+        this.baseMapper.listAllUser(resultHandler);
+        return null;
     }
 }
