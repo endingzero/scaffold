@@ -44,6 +44,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         ExcelDownloadResultHandler resultHandler = ExcelDownloadResultHandler.create(userDataConverter);
 
         this.baseMapper.listAllUser(resultHandler);
-        return null;
+
+        return (ResponseEntity<FileSystemResource>) resultHandler.get();
     }
 }

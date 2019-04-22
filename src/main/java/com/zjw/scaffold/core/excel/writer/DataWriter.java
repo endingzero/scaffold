@@ -1,5 +1,6 @@
 package com.zjw.scaffold.core.excel.writer;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -9,10 +10,10 @@ import java.util.function.Supplier;
  * @author: zhuangjiewei
  * @create: 2019/03/28 21:43
  */
-public interface DataWriter<R> extends Consumer<String[]>, Supplier<R> {
+public interface DataWriter<R> extends Consumer<List<String>>, Supplier<R> {
 
     void setTitle(String title);
 
-    void setHeader(String[] header);
+    void setHeader(List<String> header);
 
 }

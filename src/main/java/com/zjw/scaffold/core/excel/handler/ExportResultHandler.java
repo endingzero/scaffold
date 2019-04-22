@@ -44,13 +44,23 @@ public class ExportResultHandler<T,R> implements ResultHandler<T>, Supplier<R> {
 
     @Override
     public R get() {
-        return null;
+        this.handle();
+        return this.writer.get();
     }
 
     @Override
     public void handleResult(ResultContext<? extends T> resultContext) {
 
-        System.out.println(resultContext.getResultCount());
+        this.dataCache.add(resultContext.getResultObject());
+        if(this.dataCache.size() > cacheSize) {
+            this.handle();
+        }
+    }
 
+    private void handle() {
+        if(!this.dataCache.isEmpty()) {
+            this.dataCache.forEach(v -> this.writer.accept(this.converter.apply(v)));
+            this.dataCache.clear();
+        }
     }
 }
