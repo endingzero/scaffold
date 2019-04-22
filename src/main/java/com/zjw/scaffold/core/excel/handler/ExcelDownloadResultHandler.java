@@ -22,6 +22,6 @@ public class ExcelDownloadResultHandler<T> extends ExportResultHandler<T,Respons
     public static <T> ExcelDownloadResultHandler create(DataConverter<T> converter) {
 
         DataWriter<ResponseEntity<FileSystemResource>> writer = new ExcelDataWriter();
-        return new ExcelDownloadResultHandler(converter, writer);
+        return new ExcelDownloadResultHandler(converter,writer);
     }
 }

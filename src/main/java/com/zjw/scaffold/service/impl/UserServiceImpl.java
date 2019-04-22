@@ -6,6 +6,7 @@ import com.zjw.scaffold.core.excel.handler.ExcelDownloadResultHandler;
 import com.zjw.scaffold.entity.User;
 import com.zjw.scaffold.event.AddUserEvent;
 import com.zjw.scaffold.mapper.UserMapper;
+import com.zjw.scaffold.response.UserExportResponse;
 import com.zjw.scaffold.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 
         UserDataConverter userDataConverter = new UserDataConverter();
-        ExcelDownloadResultHandler resultHandler = ExcelDownloadResultHandler.create(userDataConverter);
+        ExcelDownloadResultHandler<UserExportResponse> resultHandler = ExcelDownloadResultHandler.create(userDataConverter);
 
         this.baseMapper.listAllUser(resultHandler);
 
-        return (ResponseEntity<FileSystemResource>) resultHandler.get();
+        return resultHandler.get();
     }
 }
