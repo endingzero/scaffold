@@ -52,7 +52,7 @@ public class ExportResultHandler<T,R> implements ResultHandler<T>, Supplier<R> {
     public void handleResult(ResultContext<? extends T> resultContext) {
 
         this.dataCache.add(resultContext.getResultObject());
-        if(this.dataCache.size() > cacheSize) {
+        if(this.dataCache.size() >= cacheSize) {
             this.handle();
         }
     }
