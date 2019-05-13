@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+DROP TABLE IF EXISTS `t_user`;
+CREATE TABLE `t_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '登录账号',
   `name` varchar(40) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '名称',
@@ -14,4 +14,18 @@ CREATE TABLE `user` (
   `update_by` bigint(20) DEFAULT NULL COMMENT '修改人',
   `avatar` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '头像',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3799 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户信息表';
+
+DROP TABLE IF EXISTS `t_auto_code`;
+CREATE TABLE `t_auto_code` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) DEFAULT NULL COMMENT '编码',
+  `name` varchar(255) DEFAULT NULL COMMENT '名称',
+  `init_value` int(11) DEFAULT NULL COMMENT '初始值',
+  `current_value` int(11) DEFAULT NULL COMMENT '当前值',
+  `max` int(11) DEFAULT NULL COMMENT '最大值',
+  `num_length` int(11) DEFAULT NULL COMMENT '长度',
+  `prefix` varchar(20) DEFAULT NULL COMMENT '前缀',
+  `fetch_size` int(11) DEFAULT NULL COMMENT '缓存长度',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='code表';
