@@ -6,3 +6,5 @@
 优化:
 * 对data进行了太多次for循环处理,而且一次性加载太多数据容易造成OOM,mysql本身支持流式查询,上网查了下mybatis的流式处理可以使用ResultHandler来进行实现。多次的for循环处理数据可以直接在实现handleResult()方法中进行优化处理。
 * poi的XSSFworkbook支持的数据量不大,网上支持大数据的大都通过SXSSFworkbook,在new的时候指定内存保留的数据条数,可以避免造成OOM,而且也可以把写到workbook的操作也写到handleResult中。
+
+## 使用docker安装redis
