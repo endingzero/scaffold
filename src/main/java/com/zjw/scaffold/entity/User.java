@@ -22,7 +22,7 @@ import java.util.Date;
 @Setter
 @ToString
 @Accessors(chain = true)
-@TableName("user")
+@TableName("t_user")
 public class User implements Serializable {
 
     /**
