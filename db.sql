@@ -21,7 +21,7 @@ CREATE TABLE `t_auto_code` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) DEFAULT NULL COMMENT '编码',
   `name` varchar(255) DEFAULT NULL COMMENT '名称',
-  `init_value` int(11) DEFAULT NULL COMMENT '初始值',
+  `init_value` int(11) DEFAULT 1 COMMENT '初始值',
   `current_value` int(11) DEFAULT NULL COMMENT '当前值',
   `max` int(11) DEFAULT NULL COMMENT '最大值',
   `num_length` int(11) DEFAULT NULL COMMENT '长度',
