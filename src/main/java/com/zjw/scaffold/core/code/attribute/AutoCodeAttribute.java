@@ -17,6 +17,7 @@ import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
 public class AutoCodeAttribute {
 
     private Long id;
+    private String code;
     private String name;
     private Integer max;
     private int maxValue;
@@ -28,5 +29,9 @@ public class AutoCodeAttribute {
 
     public int getNextValue() {
         return this.currentValue.addAndGet(this.step);
+    }
+
+    public boolean isNeedUpdate() {
+        return this.currentValue.get() + this.step > this.maxValue;
     }
 }

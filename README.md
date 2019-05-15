@@ -10,6 +10,7 @@
 ## 使用docker安装redis
 
 ## code生成器
+###code规则
 背景:大多数业务都要求生成编码来唯一识别每一条数据,根据需求有以下几种情况.
 1. 固定长度补0的自增长编号
 2. 不补0的自增长编号
@@ -20,3 +21,20 @@
 7. 前缀+时间戳+第一种情况
 8. 前缀+时间戳+第二种情况
 根据情况,觉得比较适合策略模式,可以根据不同的策略选择不同的生成方式。
+###采用本地缓存加redis缓存来存储和获取code,具体实现情况如下
+设置缓存对象{
+    id;
+    name;
+    max;
+    maxValue;
+    step;
+    numLength;
+    prefix;
+    type;
+    currentValue;
+}
+* 本地缓存和redis存储缓存对象
+* currentValue + step > maxValue 的时候更新本地缓存和redis存储缓存对象以及更新到数据库(maxValue = currentValue + fetchSize)
+* 每次获取之后更新本地缓存的currentValue
+* 假设内存数据丢失的情况下,获取数据库currentValue + fetchSize作为当前的最大值
+
