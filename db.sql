@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` varchar (20) CHARACTER SET utf8 DEFAULT NULL COMMENT '编码',
   `username` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '登录账号',
   `name` varchar(40) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '名称',
   `password` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '密码',

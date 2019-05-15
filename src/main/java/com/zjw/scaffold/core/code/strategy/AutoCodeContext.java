@@ -1,8 +1,7 @@
-package com.zjw.scaffold.core.code;
+package com.zjw.scaffold.core.code.strategy;
 
 import com.zjw.scaffold.core.code.attribute.AutoCodeAttribute;
 import com.zjw.scaffold.core.code.enums.AutoCodeType;
-import com.zjw.scaffold.core.code.strategy.*;
 
 import java.util.concurrent.ConcurrentHashMap;
 
