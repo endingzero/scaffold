@@ -11,6 +11,6 @@ import com.zjw.scaffold.core.code.attribute.AutoCodeAttribute;
 public class PrefixIncreaseAutoCode implements AutoCodeStrategy{
     @Override
     public String getNextCode(AutoCodeAttribute autoCodeAttribute) {
-        return autoCodeAttribute.getPrefix() + String.valueOf(autoCodeAttribute.getNextValue());
+        return autoCodeAttribute.getPrefix() + autoCodeAttribute.getNextValue();
     }
 }

@@ -34,7 +34,8 @@
     currentValue;
 }
 * 本地缓存和redis存储缓存对象
-* currentValue + step > maxValue 的时候更新本地缓存和redis存储缓存对象以及更新到数据库(maxValue = currentValue + fetchSize)
+* currentValue + step > maxValue 的时候更新本地缓存和redis存储缓存对象以及更新到数据库(maxValue = currentValue + cacheFrequency * step)
 * 每次获取之后更新本地缓存的currentValue
-* 假设内存数据丢失的情况下,获取数据库currentValue + fetchSize作为当前的最大值
+* 假设内存数据丢失的情况下,获取redis中的原子增长数据,如果没有则数据库maxValue作为当前的值
+* 用redis的原子增长来保证每次增长的原子性
 

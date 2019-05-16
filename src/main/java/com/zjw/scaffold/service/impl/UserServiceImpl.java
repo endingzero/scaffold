@@ -2,10 +2,14 @@ package com.zjw.scaffold.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zjw.scaffold.converter.UserDataConverter;
+import com.zjw.scaffold.core.code.enums.AutoCodeType;
+import com.zjw.scaffold.core.code.service.AutoCodeService;
 import com.zjw.scaffold.core.excel.handler.ExcelDownloadResultHandler;
 import com.zjw.scaffold.entity.User;
+import com.zjw.scaffold.enums.BizCodeType;
 import com.zjw.scaffold.event.AddUserEvent;
 import com.zjw.scaffold.mapper.UserMapper;
+import com.zjw.scaffold.service.BizCodeService;
 import com.zjw.scaffold.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +31,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private ApplicationContext applicationContext;
+    @Autowired
+    private BizCodeService bizCodeService;
 
     @Override
     @Transactional
     public void addUser(User user) {
-
+        String code = bizCodeService.getUserCode();
+        log.info(code);
+        user.setCode(code);
         this.baseMapper.insert(user);
-        this.applicationContext.publishEvent(new AddUserEvent(this,user));
+        //this.applicationContext.publishEvent(new AddUserEvent(this,user));
     }
 
     @Override

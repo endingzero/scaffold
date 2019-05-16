@@ -12,6 +12,6 @@ import com.zjw.scaffold.util.DateUtils;
 public class DateIncreaseAutoCode implements AutoCodeStrategy{
     @Override
     public String getNextCode(AutoCodeAttribute autoCodeAttribute) {
-        return DateUtils.formatShortCurrent() + autoCodeAttribute.getCurrentValue();
+        return DateUtils.formatShortCurrent() + autoCodeAttribute.getNextValue();
     }
 }

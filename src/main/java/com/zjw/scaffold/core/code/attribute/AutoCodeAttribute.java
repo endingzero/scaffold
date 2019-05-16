@@ -1,5 +1,6 @@
 package com.zjw.scaffold.core.code.attribute;
 
+import io.swagger.annotations.ApiParam;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,15 +17,23 @@ import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
 @ToString
 public class AutoCodeAttribute {
 
+    @ApiParam(value = "对应数据库中的id")
     private Long id;
+    @ApiParam(value = "对应数据库中的code")
     private String code;
-    private String name;
-    private Integer max;
+    @ApiParam(value = "对应数据库中的")
+    private String strategy;
+    @ApiParam(value = "数据库能够生成的最大数字")
+    private int max;
+    @ApiParam(value = "下一次更新缓存的最大数字")
     private int maxValue;
+    @ApiParam(value = "步长")
     private int step;
+    @ApiParam(value = "数字最大的长度")
     private Integer numLength;
+    @ApiParam(value = "前缀")
     private String prefix;
-    private String type;
+    @ApiParam(value = "当前值")
     RedisAtomicInteger currentValue;
 
     public int getNextValue() {

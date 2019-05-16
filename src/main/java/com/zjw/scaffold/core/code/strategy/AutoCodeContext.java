@@ -15,7 +15,7 @@ public class AutoCodeContext {
     private static final ConcurrentHashMap<String, AutoCodeStrategy> noStrategyMap = new ConcurrentHashMap();
 
     public static AutoCodeStrategy get(AutoCodeAttribute autoCodeAttribute) {
-        return noStrategyMap.get(autoCodeAttribute.getName());
+        return noStrategyMap.get(autoCodeAttribute.getStrategy());
     }
 
     public static AutoCodeStrategy get(String name) {

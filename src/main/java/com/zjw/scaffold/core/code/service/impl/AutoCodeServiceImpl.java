@@ -4,11 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zjw.scaffold.core.code.attribute.AutoCodeAttribute;
 import com.zjw.scaffold.core.code.cache.AutoCodeCache;
+import com.zjw.scaffold.core.code.converter.CodeConverter;
 import com.zjw.scaffold.core.code.entity.AutoCode;
 import com.zjw.scaffold.core.code.mapper.AutoCodeMapper;
 import com.zjw.scaffold.core.code.service.AutoCodeService;
 import com.zjw.scaffold.core.code.strategy.AutoCodeContext;
-import org.springframework.beans.BeanUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.Objects;
  * @create: 2019/05/15 13:13
  */
 @Service
+@Slf4j
 public class AutoCodeServiceImpl extends ServiceImpl<AutoCodeMapper, AutoCode> implements AutoCodeService {
 
     @Autowired
@@ -30,28 +32,29 @@ public class AutoCodeServiceImpl extends ServiceImpl<AutoCodeMapper, AutoCode> i
     @Override
     public String getNextCode(String code) {
         AutoCodeAttribute autoCodeAttribute = AutoCodeCache.get(code);
-        String key = "AutoCode." + code;
-        //缓存不存在的情况
-        if(Objects.isNull(autoCodeAttribute) || !this.redisTemplate.hasKey(key)){
+        String key = "AtomicInteger." + code;
+        //获取
+        if(Objects.isNull(autoCodeAttribute) || !this.redisTemplate.hasKey(key) || autoCodeAttribute.isNeedUpdate()){
+            if(Objects.nonNull(autoCodeAttribute)) {
+                log.info(String.valueOf(autoCodeAttribute.isNeedUpdate()));
+            }
             autoCodeAttribute = this.fetchCode(code);
         }
-        //缓存需要更新
-        if(autoCodeAttribute.isNeedUpdate()) {
-            autoCodeAttribute = this.updateCode(code);
-        }
-        //缓存获取
-        //AutoCode autoCode = this.getByCode(code);
-        //AutoCodeAttribute autoCodeAttribute = new AutoCodeAttribute();
-        //BeanUtils.copyProperties(autoCode,autoCodeAttribute);
-        return AutoCodeContext.get(code).getNextCode(autoCodeAttribute);
-    }
 
-    private AutoCodeAttribute updateCode(String code) {
-        return null;
+        return AutoCodeContext.get(autoCodeAttribute.getStrategy()).getNextCode(autoCodeAttribute);
     }
 
     private AutoCodeAttribute fetchCode(String code) {
-        return null;
+        //查询数据库
+        AutoCode autoCode = this.getByCode(code);
+        //转换成AutoCodeAttribute,将缓存存储过到redis中
+        CodeConverter codeConverter = new CodeConverter(redisTemplate);
+        AutoCodeAttribute autoCodeAttribute = codeConverter.apply(autoCode);
+        //将autoCode存储到缓存中
+        AutoCodeCache.put(autoCodeAttribute);
+        autoCode.setCurrentValue(autoCodeAttribute.getCurrentValue().get());
+        this.baseMapper.updateById(autoCode);
+        return autoCodeAttribute;
     }
 
     private AutoCode getByCode(String code) {

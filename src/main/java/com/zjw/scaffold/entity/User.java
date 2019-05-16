@@ -31,6 +31,9 @@ public class User implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @TableField("code")
+    private String code;
+
     @NotNull(message = "用户名不能为空")
     @Length(max = 20,message = "用户名长度必须在{max}个字符内")
     @TableField("username")

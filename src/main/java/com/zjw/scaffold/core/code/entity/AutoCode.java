@@ -24,21 +24,18 @@ public class AutoCode implements Serializable {
     @NotNull(message = "规则编号不能为空")
     @TableField(value = "code")
     private String code;
-    @NotNull(message = "规则名称不能为空")
-    @TableField(value = "name")
-    private String name;
     @TableField(value = "init_value")
     private Integer initValue;
     @TableField(value = "current_value")
     private Integer currentValue;
-    @TableField(value = "max")
-    private Integer max;
     @TableField(value = "num_length")
     private Integer numLength;
     @TableField(value = "prefix")
     private String prefix;
-    @TableField(value = "fetch_size")
-    private Integer fetchSize;
+    @TableField(value = "cache_frequency")
+    private Integer cacheFrequency;
     @TableField(value = "step")
     private Integer step;
+    @TableField(value = "strategy")
+    private String strategy;
 }
