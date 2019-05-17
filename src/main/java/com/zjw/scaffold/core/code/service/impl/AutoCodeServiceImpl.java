@@ -50,6 +50,11 @@ public class AutoCodeServiceImpl extends ServiceImpl<AutoCodeMapper, AutoCode> i
         //转换成AutoCodeAttribute,将缓存存储过到redis中
         CodeConverter codeConverter = new CodeConverter(redisTemplate);
         AutoCodeAttribute autoCodeAttribute = codeConverter.apply(autoCode);
+        if(autoCodeAttribute.isLoop()) {
+            autoCode.setCurrentValue(autoCode.getInitValue());
+            autoCodeAttribute.getCurrentValue().set(autoCode.getInitValue());
+            autoCodeAttribute.setMaxValue(autoCodeAttribute.getCurrentValue().get()+ autoCode.getCacheFrequency() * autoCode.getStep());
+        }
         //将autoCode存储到缓存中
         AutoCodeCache.put(autoCodeAttribute);
         autoCode.setCurrentValue(autoCodeAttribute.getCurrentValue().get());

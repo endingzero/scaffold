@@ -50,7 +50,7 @@ public class CodeConverter implements Function<AutoCode,AutoCodeAttribute> {
     }
 
     private int calculateMaxValue(AutoCode autoCode) {
-        return  this.calculateCurrentValue(autoCode).get()+ autoCode.getCacheFrequency() * autoCode.getStep();
+        return this.calculateCurrentValue(autoCode).get()+ autoCode.getCacheFrequency() * autoCode.getStep();
     }
 
     private Integer calculateMax(AutoCode autoCode) {

@@ -43,4 +43,8 @@ public class AutoCodeAttribute {
     public boolean isNeedUpdate() {
         return this.currentValue.get() + this.step > this.maxValue;
     }
+
+    public boolean isLoop() {
+        return this.maxValue >= this.max;
+    }
 }
