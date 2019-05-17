@@ -26,9 +26,10 @@ CREATE TABLE `t_auto_code` (
   `num_length` int(11) DEFAULT NULL COMMENT '长度',
   `prefix` varchar(20) DEFAULT NULL COMMENT '前缀',
   `cache_frequency` int(11) DEFAULT NULL COMMENT '更新缓存频率',
-  `step` int(11) DEFAULT NULL COMMENT '步长',
+  `step` int(11) DEFAULT 1 COMMENT '步长',
   `strategy` varchar (255) DEFAULT NULL COMMENT '策略',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `t_auto_code_code` (`code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='code表';
 
 insert into `t_auto_code` (code,init_value,current_value,num_length,prefix,cache_frequency,step,strategy)

@@ -33,17 +33,24 @@ public class AutoCodeServiceImpl extends ServiceImpl<AutoCodeMapper, AutoCode> i
     public String getNextCode(String code) {
         AutoCodeAttribute autoCodeAttribute = AutoCodeCache.get(code);
         String key = "AtomicInteger." + code;
-        //获取
+        //内存中是否存在,是否第一次假如缓存,是否需要更新
+        //第一次执行的获取,之后就根据更新频率进行更新
         if(Objects.isNull(autoCodeAttribute) || !this.redisTemplate.hasKey(key) || autoCodeAttribute.isNeedUpdate()){
-            if(Objects.nonNull(autoCodeAttribute)) {
-                log.info(String.valueOf(autoCodeAttribute.isNeedUpdate()));
-            }
             autoCodeAttribute = this.fetchCode(code);
         }
 
         return AutoCodeContext.get(autoCodeAttribute.getStrategy()).getNextCode(autoCodeAttribute);
     }
 
+    /**
+     * 获取code
+     * 1、查找数据库获取实体
+     * 2、将实体对象转换成缓存对象,将缓存对象存储到redis
+     * 3、将缓存对象设置到本地缓存
+     * 4、将实体更新到数据库
+     * @param code
+     * @return
+     */
     private AutoCodeAttribute fetchCode(String code) {
         //查询数据库
         AutoCode autoCode = this.getByCode(code);
@@ -51,6 +58,7 @@ public class AutoCodeServiceImpl extends ServiceImpl<AutoCodeMapper, AutoCode> i
         CodeConverter codeConverter = new CodeConverter(redisTemplate);
         AutoCodeAttribute autoCodeAttribute = codeConverter.apply(autoCode);
         if(autoCodeAttribute.isLoop()) {
+            //循环
             autoCode.setCurrentValue(autoCode.getInitValue());
             autoCodeAttribute.getCurrentValue().set(autoCode.getInitValue());
             autoCodeAttribute.setMaxValue(autoCodeAttribute.getCurrentValue().get()+ autoCode.getCacheFrequency() * autoCode.getStep());
