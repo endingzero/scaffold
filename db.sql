@@ -14,8 +14,32 @@ CREATE TABLE `t_user` (
 	`create_by` bigint(20) DEFAULT NULL COMMENT '创建人',
   `update_by` bigint(20) DEFAULT NULL COMMENT '修改人',
   `avatar` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '头像',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `t_user_sex` (`sex`)
+
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户信息表';
+
+
+delimiter ;;
+drop procedure if exists idata;
+create procedure idata()
+begin
+  declare i int;
+  set i=0;
+  while i<10000 do
+    insert into t_user(username,name,password,status,sex,create_time,create_by)
+values(substring(MD5(RAND()),1,10),concat('RAND',substring(MD5(RAND()),1,10)),123456,1,'F',CURRENT_TIME,0);
+    set i=i+1;
+  end while;
+  while i<20000 do
+    insert into t_user(username,name,password,status,sex,create_time,create_by)
+values(substring(MD5(RAND()),1,10),concat('RAND',substring(MD5(RAND()),1,10)),123456,1,'M',CURRENT_TIME,0);
+    set i=i+1;
+  end while;
+end;;
+delimiter ;
+
+call idata();
 
 DROP TABLE IF EXISTS `t_auto_code`;
 CREATE TABLE `t_auto_code` (
