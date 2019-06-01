@@ -42,7 +42,6 @@ public abstract class CaffeineBeverage {
         System.out.println("倒到杯子");
     }
 
-
     /**
      * 煮开水
      */
