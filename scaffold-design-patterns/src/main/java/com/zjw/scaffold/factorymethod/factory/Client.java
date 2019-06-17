@@ -1,5 +1,8 @@
 package com.zjw.scaffold.factorymethod.factory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @program scaffold
  * @description: \
@@ -11,6 +14,7 @@ public class Client {
     public static void main(String[] args) {
         PizzaStore pizzaStore = new NYPizzaStore();
         pizzaStore.orderPizza("cheese");
+        Map<String,String> map =  new HashMap<>();
 
     }
 }

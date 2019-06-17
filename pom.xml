@@ -32,6 +32,7 @@
         <module>scaffold-base</module>
         <module>scaffold-code</module>
         <module>scaffold-excel</module>
+        <module>scaffold-design-patterns</module>
     </modules>
 
     <!-- 使用dependencyManagement标签管理依赖，实际管理的是依赖的版本号，让所有子项目中引用对应依赖而不用显式的列出版本号；依赖并不会在当前项目引入 -->
@@ -49,6 +50,11 @@
             </dependency>
             <dependency>
                 <artifactId>scaffold-excel</artifactId>
+                <groupId>com.zjw.scaffold</groupId>
+                <version>${scaffold.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>scaffold-design-patterns</artifactId>
                 <groupId>com.zjw.scaffold</groupId>
                 <version>${scaffold.version}</version>
             </dependency>
