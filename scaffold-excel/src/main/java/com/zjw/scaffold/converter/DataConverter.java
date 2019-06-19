@@ -1,5 +1,6 @@
 package com.zjw.scaffold.converter;
 
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -8,9 +9,9 @@ import java.util.function.Function;
  * @author: zhuangjiewei
  * @create: 2019/03/28 21:43
  */
-public interface DataConverter<T> extends Function<T,String[]> {
+public interface DataConverter<T> extends Function<T, List<String>> {
 
     String getTitle();
 
-    String[] getHeader();
+    List<String> getHeader();
 }
